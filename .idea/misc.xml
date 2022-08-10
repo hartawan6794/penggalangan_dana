@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/drawable/bg_dana_detail.xml" value="0.332" />
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/drawable/bg_donasi.xml" value="0.195" />
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/drawable/btn_bg.xml" value="0.195" />
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/activity_detail_donasi.xml" value="0.33" />
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/rvmain.xml" value="0.33" />
+        <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/slider_layout.xml" value="0.18697916666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
