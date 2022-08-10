@@ -1,5 +1,6 @@
 package com.example.tryapp;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class DetailDonasiActivity extends AppCompatActivity {
     TextView tv_nm_penggalang,tv_nm_pasien,tv_penyakit,tv_alamat,tv_tentang,tv_dana,tv_judul;
     ImageView iv_pasien;
     Galang g;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,15 @@ public class DetailDonasiActivity extends AppCompatActivity {
         tv_dana = findViewById(R.id.dana);
         tv_judul = findViewById(R.id.tv_judul);
         iv_pasien = findViewById(R.id.img_pasien);
+        progressDialog = new ProgressDialog(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             value = extras.getString("id");
             //The key argument here must match that used in the other activity
         }
+        progressDialog.setMessage("Mengambil Data.....");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         getGalangSelected(value);
     }
@@ -52,11 +58,12 @@ public class DetailDonasiActivity extends AppCompatActivity {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                                progressDialog.dismiss();
+                                progressDialog.dismiss();
                         Log.d("responEdit",""+response);
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
+
                                 JSONArray ja = response.getJSONArray("result");
                                 Log.d("respon",""+ja);
                                 JSONObject jo = ja.getJSONObject(0);
