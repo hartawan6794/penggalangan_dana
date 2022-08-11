@@ -63,7 +63,6 @@
                     android:id="@+id/post_nama"
                     android:layout_weight="1"
                     android:hint="Kosongkan jika tidak ingin disebut namanya "
-                    android:textSize="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -84,7 +83,6 @@
                 <EditText
                     android:id="@+id/email"
                     android:layout_weight="1"
-                    android:textSize="10dp"
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -113,36 +111,37 @@
 
 
             </LinearLayout>
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <TextView
-                android:text="Bukti Transfer"
+
+            <ImageView
+                android:id="@+id/viewImage"
                 android:textColor="@color/black"
                 android:layout_weight="1"
-                android:layout_marginLeft="8dp"
+                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="250dp"
+                android:background="@drawable/bg_table"
+                />
             <Button
                 android:id="@+id/post_gambar"
                 android:layout_weight="1"
-                android:text="Upload Image.."
-                android:textSize="8dp"
-                android:gravity=""
+                android:text="Upload Gambar"
+                android:layout_margin="20dp"
+                android:background="@drawable/btn_blue"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="wrap_content"/>
 
 
-        </LinearLayout>
             <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_kirim"
                 android:text="Kirim Sekrang"
                 android:textColor="@color/white"
                 android:textAllCaps="false"

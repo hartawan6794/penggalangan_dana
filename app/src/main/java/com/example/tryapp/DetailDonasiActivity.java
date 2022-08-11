@@ -102,7 +102,7 @@ public class DetailDonasiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),KonfrimActivity.class);
-                i.putExtra("id_galang",value);
+                i.putExtra("id",value);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -128,13 +128,13 @@ public class DetailDonasiActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                                 progressDialog.dismiss();
-                        Log.d("responEdit",""+response);
+//                        Log.d("responEdit",""+response);
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
 
                                 JSONArray ja = response.getJSONArray("result");
-                                Log.d("respon",""+ja);
+//                                Log.d("respon",""+ja);
                                 JSONObject jo = ja.getJSONObject(0);
                                 tv_judul.setText("Detail Galangan Dana : "+jo.getString("judul"));
                                 Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/images/"+jo.getString("gambar")).into(iv_pasien);
