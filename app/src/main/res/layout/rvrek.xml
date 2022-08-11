@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/danalogo"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ll"
+        android:gravity="center"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        app:layout_constraintLeft_toRightOf="@id/iv_logo"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints" android:layout_width="0dp">
+        <TextView
+            android:id="@+id/tv_nm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Rekening"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/tv_no_rek"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Rekening"
+            android:padding="5dp"
+            android:textAlignment="textEnd"/>
+
+
+    </LinearLayout>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#808080"
+        tools:ignore="MissingConstraints" />
+
+</android.support.constraint.ConstraintLayout>

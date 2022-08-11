@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,118 +12,130 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#12557f"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/btn_bg"
-            android:clickable="true"
-            android:padding="10dp"
-            android:text="Galang Dana"
-            android:textColor="@android:color/white" />
+    <include
+            layout="@layout/toolbar"
+            android:id="@+id/toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btn_email"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/btn_bg"
-                android:clickable="true"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="  adjisuryananda@gmail.com"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="12dp"
-                app:layout_constraintBottom_toTopOf="@id/tv_header"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintLeft_toRightOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/tv_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/header"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@id/sosial"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_email"
-                tools:ignore="MissingConstraints" />
+    <!--        <LinearLayout-->
+<!--        android:id="@+id/layout"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#12557f"-->
+<!--        android:orientation="vertical"-->
+<!--        tools:ignore="MissingConstraints">-->
 
-            <LinearLayout
-                android:id="@+id/sosial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:weightSum="1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_header"
-                tools:ignore="MissingConstraints">
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:background="@drawable/btn_bg"-->
+<!--            android:clickable="true"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="Galang Dana"-->
+<!--            android:textColor="@android:color/white" />-->
 
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_bg"
-                    android:clickable="true" />
+<!--        <android.support.constraint.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_bg"
-                    android:clickable="true" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_email"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/btn_bg"-->
+<!--                android:clickable="true"-->
+<!--                android:drawableLeft="@drawable/ic_baseline_email_24"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="10dp"-->
+<!--                android:text="  adjisuryananda@gmail.com"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:textSize="12dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/tv_header"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintLeft_toRightOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:ignore="MissingConstraints" />-->
 
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_bg"
-                    android:clickable="true" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_header"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:text="@string/header"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/sosial"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/btn_email"-->
+<!--                tools:ignore="MissingConstraints" />-->
 
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_bg"
-                    android:clickable="true" />
+<!--            <LinearLayout-->
+<!--                android:id="@+id/sosial"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:weightSum="1"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_header"-->
+<!--                tools:ignore="MissingConstraints">-->
 
-            </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
+<!--                <Button-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_margin="3dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/btn_bg"-->
+<!--                    android:clickable="true" />-->
 
-    </LinearLayout>
+<!--                <Button-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_margin="3dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/btn_bg"-->
+<!--                    android:clickable="true" />-->
+
+<!--                <Button-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_margin="3dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/btn_bg"-->
+<!--                    android:clickable="true" />-->
+
+<!--                <Button-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_margin="3dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/btn_bg"-->
+<!--                    android:clickable="true" />-->
+
+<!--            </LinearLayout>-->
+<!--        </android.support.constraint.ConstraintLayout>-->
+
+<!--    </LinearLayout>-->
 
         <TextView
+
             android:id="@+id/tv_judul"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:text="Detail Galangan Dana :"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
@@ -146,7 +159,8 @@
                     android:id="@+id/img_pasien"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/wtf"/>
+                    android:src="@drawable/wtf"
+                    android:layout_margin="5dp"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -299,19 +313,117 @@
                     android:background="@drawable/bg_dana_detail"
                     android:layout_gravity="center"/>
 
-                <ProgressBar
-                    android:layout_marginTop="8dp"
-                    android:id="@+id/progress_b"
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:progress="50"
-                    android:background="@drawable/btn_bg"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                    android:layout_height="wrap_content">
+                    <ProgressBar
+                        android:id="@+id/progress_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:progress="50"
+                        android:theme="@style/AppTheme.BlueAccent"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                    <TextView
+                        android:id="@+id/tv_prosses"
+                        app:layout_constraintLeft_toLeftOf="@id/progress_b"
+                        app:layout_constraintRight_toRightOf="@id/progress_b"
+                        app:layout_constraintBottom_toBottomOf="@id/progress_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:textColor="@color/black"
+                        android:text="%"
+                        android:layout_marginBottom="10dp"/>
+                </android.support.constraint.ConstraintLayout>
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_rek"
+            app:layout_constraintTop_toBottomOf="@id/cv_dana"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:layout_margin="8dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_t"
+                    tools:ignore="MissingConstraints"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:text="Rekening Transfer"
+                    android:textColor="@android:color/black"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_rek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_rule"
+            app:layout_constraintTop_toBottomOf="@id/cv_rek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/tv_kode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kode unik anda : 9"
+                    android:padding="2dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/btn_blue"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/tv_ket_kode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:padding="10dp"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/btn_biru_muda"
+                    android:layout_gravity="left"/>
+
+                <Button
+                    android:id="@+id/btn_konfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Konfirmasi Pembayaran"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn_blue"
+                    android:textColor="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
+

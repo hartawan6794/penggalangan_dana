@@ -85,20 +85,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dana"/>
-            <ProgressBar
-                android:id="@+id/progress_b"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:progress="50"
-                android:background="@drawable/btn_bg"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
-            <TextView
-                android:id="@+id/tv_prosses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="%"
-                android:layout_marginBottom="10dp"/>
+                android:layout_height="wrap_content">
+                <ProgressBar
+                    android:id="@+id/progress_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:progress="50"
+                    android:theme="@style/AppTheme.BlueAccent"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                <TextView
+                    android:id="@+id/tv_prosses"
+                    app:layout_constraintLeft_toLeftOf="@id/progress_b"
+                    app:layout_constraintRight_toRightOf="@id/progress_b"
+                    app:layout_constraintBottom_toBottomOf="@id/progress_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textColor="@color/black"
+                    android:text="%"
+                    android:layout_marginBottom="10dp"/>
+            </android.support.constraint.ConstraintLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

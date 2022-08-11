@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/drawable/bg_dana_detail.xml" value="0.1935" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/drawable/bg_donasi.xml" value="0.1935" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/drawable/bg_table.xml" value="0.1925" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/drawable/btn_bg.xml" value="0.1935" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/drawable/btn_biru_muda.xml" value="0.1925" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/drawable/btn_blue.xml" value="0.1925" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/activity_detail_donasi.xml" value="0.33" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/activity_konfrim.xml" value="0.33" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/rvmain.xml" value="0.33" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/rvrek.xml" value="0.5" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/slider_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/layout/toolbar.xml" value="0.3625" />
+        <entry key="..\:/Juli/penggalangan_dana/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1935" />
         <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/drawable/bg_dana_detail.xml" value="0.332" />
         <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/drawable/bg_donasi.xml" value="0.195" />
         <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/drawable/btn_bg.xml" value="0.195" />

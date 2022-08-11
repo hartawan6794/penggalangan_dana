@@ -11,4 +11,11 @@ public class Pengaturan {
         return formatRupiah.format(number);
     }
 
+    public static float presentase(String d, String t){
+        float dana = Integer.parseInt(d);
+        float terkumpul = Integer.parseInt(t);
+        float progress = (terkumpul/dana)*100;
+        return progress;
+    }
+
 }

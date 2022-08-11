@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -47,8 +50,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+////        actionBar.setTitle("Bantuan Aplikasi");
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setBackgroundDrawable();
 
-        srl_main    = findViewById(R.id.srl_main);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+//        srl_main    = findViewById(R.id.srl_main);
         rv_main     = findViewById(R.id.rv_main);
         SliderView sliderView = findViewById(R.id.slider);
 
@@ -88,14 +105,15 @@ public class MainActivity extends AppCompatActivity {
 
         // to start autocycle below method is used.
         sliderView.startAutoCycle();
+//        getData();
 
-        srl_main.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                scrollRefresh();
-                srl_main.setRefreshing(false);
-            }
-        });
+//        srl_main.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                scrollRefresh();
+//                srl_main.setRefreshing(false);
+//            }
+//        });
 
         scrollRefresh();
 

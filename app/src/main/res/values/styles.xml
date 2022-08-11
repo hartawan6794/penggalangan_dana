@@ -7,5 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="AppTheme.BlueAccent">
+        <item name="colorAccent">#12557f</item> <!-- Whatever color you want-->
+    </style>
 </resources>

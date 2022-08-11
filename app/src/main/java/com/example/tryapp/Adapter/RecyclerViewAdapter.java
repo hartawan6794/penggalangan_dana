@@ -91,9 +91,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.MyViewHolder holder, int position) {
-        float dana = Integer.parseInt(arr_dana.get(position));
-        float terkumpul = Integer.parseInt(arr_terkumpul.get(position));
-        float progress = (terkumpul/dana)*100;
+
+        float progress = p.presentase(arr_dana.get(position), arr_terkumpul.get(position));
         DecimalFormat df = new DecimalFormat(".##");
         holder.tv_nm_p.setText(arr_nm_penggalang.get(position));
         holder.tv_judul.setText(arr_judul.get(position));
