@@ -1,10 +1,14 @@
 package com.example.tryapp;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +25,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.tryapp.Adapter.RecyclerViewAdapter;
 import com.example.tryapp.Adapter.SliderAdapter;
+import com.example.tryapp.Helper.Pengaturan;
 import com.example.tryapp.model.Slider;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -41,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     RecyclerViewAdapter recycleViewAdapter;
+    Pengaturan p = new Pengaturan();
+    boolean doubleBackToExitPressedOnce = false;
 
     String url1 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-01.jpg";
     String url2 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-02.jpg";
@@ -52,16 +59,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-////        actionBar.setTitle("Bantuan Aplikasi");
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setBackgroundDrawable();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+
             }
         });
 
@@ -105,15 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         // to start autocycle below method is used.
         sliderView.startAutoCycle();
-//        getData();
-
-//        srl_main.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                scrollRefresh();
-//                srl_main.setRefreshing(false);
-//            }
-//        });
 
         scrollRefresh();
 
@@ -149,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getData(){
         initializeArray();
-        AndroidNetworking.get("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/galangan.php")
+        AndroidNetworking.get(p.GALANGAN_URL)
                 .setTag("Get Data")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -193,6 +186,25 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Tekan 2x untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 }

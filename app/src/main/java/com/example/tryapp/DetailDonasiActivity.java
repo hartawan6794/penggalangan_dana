@@ -41,9 +41,11 @@ public class DetailDonasiActivity extends AppCompatActivity {
     Galang g;
     ProgressDialog progressDialog;
     ProgressBar pb;
-    Pengaturan p;
+    Pengaturan p = new Pengaturan();
     RecyclerView rv_rek;
     RekeningAdapter ra;
+    ImageView tv_header_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +54,12 @@ public class DetailDonasiActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Bantuan Aplikasi");
+        actionBar.setTitle("Detail Pasien");
         actionBar.setDisplayHomeAsUpEnabled(true);
 //        actionBar.setLogo(R.drawable.galang);
         actionBar.setHomeButtonEnabled(true);
+        tv_header_title = findViewById(R.id.tv_header_title);
+        tv_header_title.setVisibility(View.GONE);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +124,7 @@ public class DetailDonasiActivity extends AppCompatActivity {
     }
 
     void getGalangSelected(String id){
-        AndroidNetworking.post("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_gelengan.php")
+        AndroidNetworking.post(p.SELECT_GALANGAN_URL)
                 .addBodyParameter("id",""+id)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -147,11 +151,6 @@ public class DetailDonasiActivity extends AppCompatActivity {
                                 float progress = p.presentase(jo.getString("dana"),jo.getString("terkumpul"));
                                 tv_proses.setText((int) progress+"%");
                                 pb.setProgress((int) progress);
-
-//                                g = new Galang(jo.getString("id_galang"),jo.getString("id_member"),
-//                                        jo.getString("judul"),jo.getString("nama_pasien"),jo.getString("menderita"),
-//                                        jo.getString("deskripsi"),jo.getString("tgl_mulai"),jo.getString("alamat"),jo.getString("tgl_selesai"),
-//                                        jo.getString("dana"),jo.getString("terkumpul"),jo.getString("gambar"),jo.getString("bukti_surat"),jo.getString("status"));
                             }else{
 
                             }
