@@ -1,16 +1,22 @@
 package com.example.tryapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +33,9 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.StringRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
+import com.example.tryapp.Helper.Pengaturan;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -42,6 +51,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import okhttp3.OkHttpClient;
+
 public class KonfrimActivity extends AppCompatActivity {
 
     final Calendar myCalendar= Calendar.getInstance();
@@ -49,9 +60,12 @@ public class KonfrimActivity extends AppCompatActivity {
     String value,tanggal,nama,email,gambar;
     String nominal;
     EditText ed_date,ed_nm,ed_email,ed_nominal;
-    Button bt_kirim;
+    Button bt_kirim,btn_upload;
     ProgressDialog progressDialog;
     private String Document_img1="";
+    //storage permission code
+    private static final int STORAGE_PERMISSION_CODE = 123;
+    Pengaturan p = new Pengaturan();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +74,11 @@ public class KonfrimActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             value = extras.getString("id");
+            //Requesting storage permission
+            requestStoragePermission();
             //The key argument here must match that used in the other activity
         }
+
 
         progressDialog = new ProgressDialog(this);
         ed_date = findViewById(R.id.post_tgl);
@@ -70,6 +87,7 @@ public class KonfrimActivity extends AppCompatActivity {
         ed_nominal = findViewById(R.id.post_nominal);
         bt_kirim = findViewById(R.id.btn_kirim);
         iv_view = findViewById(R.id.viewImage);
+        btn_upload = findViewById(R.id.post_gambar);
 
         DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -99,14 +117,13 @@ public class KonfrimActivity extends AppCompatActivity {
                 nama = ed_nm.getText().toString();
                 email = ed_email.getText().toString();
                 nominal = ed_nominal.getText().toString().trim();
-                gambar = ed_nm.getText().toString();
 
                 kirimDonasi();
 
             }
         });
 
-        iv_view.setOnClickListener(new View.OnClickListener() {
+        btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
@@ -121,12 +138,12 @@ public class KonfrimActivity extends AppCompatActivity {
     }
 
     void kirimDonasi(){
-        AndroidNetworking.post("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/insert_galang.php")
+        AndroidNetworking.post(p.INSERT_DONASI)
                 .addBodyParameter("tgl_transfer",""+tanggal)
                 .addBodyParameter("nominal",""+nominal)
                 .addBodyParameter("nama",""+nama)
                 .addBodyParameter("email",""+email)
-                .addBodyParameter("gambar",""+gambar)
+                .addBodyParameter("image",""+gambar)
                 .addBodyParameter("id",""+value)
                 .setPriority(Priority.MEDIUM)
                 .setTag("Tambah Data")
@@ -137,17 +154,17 @@ public class KonfrimActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         Log.d("responEdit",""+response);
                         try{
-                            Boolean status = response.getBoolean("status");
+                            Boolean status = response.getBoolean("error");
     //                            Log.d("respon",""+response.getString("result"));
-                            if(status){
+                            if(!status){
                                 Toast.makeText(KonfrimActivity.this, "Data berhasil di kirim", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(KonfrimActivity.this, "Data gagal di kirim", Toast.LENGTH_SHORT).show();
                             }
-//                            Intent i = new Intent(KonfrimActivity.this,DetailDonasiActivity.class);
-//                            i.putExtra("id",value);
-//                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            startActivity(i);
+                            Intent i = new Intent(KonfrimActivity.this,DetailDonasiActivity.class);
+                            i.putExtra("id",value);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(i);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -161,25 +178,18 @@ public class KonfrimActivity extends AppCompatActivity {
     }
 
     private void selectImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = { "Pilih Dari Gallery","Batal" };
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(KonfrimActivity.this);
-        builder.setTitle("Add Photo!");
+        builder.setTitle("Upload Photo!");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo"))
-                {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(intent, 1);
-                }
-                else if (options[item].equals("Choose from Gallery"))
+                if (options[item].equals("Pilih Dari Gallery"))
                 {
                     Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, 2);
+                    startActivityForResult(intent, 1);
                 }
-                else if (options[item].equals("Cancel")) {
+                else if (options[item].equals("Batal")) {
                     dialog.dismiss();
                 }
             }
@@ -187,85 +197,117 @@ public class KonfrimActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public String getRealPathFromURI(Uri contentURI, Activity context) {
+
+            String[] projection = { MediaStore.Images.Media.DATA };
+            @SuppressWarnings("deprecation")
+            Cursor cursor = context.managedQuery(contentURI, projection, null,
+                    null, null);
+            if (cursor == null)
+                return null;
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            if (cursor.moveToFirst()) {
+                String s = cursor.getString(column_index);
+                // cursor.close();
+                return s;
+            }
+        // cursor.close();
+        return null;
+
+    }
+
     @SuppressLint("LongLogTag")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 1) {
-                File f = new File(Environment.getExternalStorageDirectory().toString());
-                for (File temp : f.listFiles()) {
-                    if (temp.getName().equals("temp.jpg")) {
-                        f = temp;
-                        break;
-                    }
-                }
-                try {
-                    Bitmap bitmap;
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
-                    bitmap=getResizedBitmap(bitmap, 400);
-                    iv_view.setImageBitmap(bitmap);
-                    BitMapToString(bitmap);
-                    String path = android.os.Environment
-                            .getExternalStorageDirectory()
-                            + File.separator
-                            + "Phoenix" + File.separator + "default";
-                    f.delete();
-                    OutputStream outFile = null;
-                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-                    try {
-                        outFile = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-                        outFile.flush();
-                        outFile.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (requestCode == 2) {
-                Uri selectedImage = data.getData();
-                String[] filePath = { MediaStore.Images.Media.DATA };
-                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
-                c.moveToFirst();
-                int columnIndex = c.getColumnIndex(filePath[0]);
-                String picturePath = c.getString(columnIndex);
-                c.close();
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                thumbnail=getResizedBitmap(thumbnail, 1024);
-                Log.w("path of image from gallery......******************.........", picturePath+"");
-                iv_view.setImageBitmap(thumbnail);
-                BitMapToString(thumbnail);
+           if (requestCode == 1) {
+                final Uri selectedImageUri = data.getData();
+                String imagepath = getRealPathFromURI(selectedImageUri,this);
+                File imageFile = new File(imagepath);
+                gambar =getFileName(selectedImageUri);
+                Log.d("name image", "name " +nama);
+                Picasso.get().load(selectedImageUri).fit().into(iv_view);
+                btn_upload.setVisibility(View.GONE);
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .retryOnConnectionFailure(false)
+                        .build();
+
+                AndroidNetworking.initialize(KonfrimActivity.this,client);
+
+
+                AndroidNetworking.upload(p.UPLOAD_IMG_DONASI)
+                        .addMultipartFile("file",imageFile)
+                        //.addMultipartParameter("key","value")
+                        //.setTag("uploadTest")
+                        .setPriority(Priority.HIGH)
+                        .build()
+                        .setUploadProgressListener(new UploadProgressListener() {
+                            @Override
+                            public void onProgress(long bytesUploaded, long totalBytes) {
+                                // do anything with progress
+                                Log.d("progress", "onProgress: "+(bytesUploaded / totalBytes)*100 + " %");
+                            }
+                        })
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("response", "onResponse: "+response);
+
+                                try{
+                                    Boolean status = response.getBoolean("success");
+                                    if(status){
+                                        Toast.makeText(KonfrimActivity.this, "Berhasil Mengupload", Toast.LENGTH_SHORT).show();
+                                    }
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(ANError anError) {
+                                Log.d("response", "onResponse: "+anError);
+
+                            }
+                        });
+
             }
         }
     }
-    public String BitMapToString(Bitmap userImage1) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        userImage1.compress(Bitmap.CompressFormat.PNG, 60, baos);
-        byte[] b = baos.toByteArray();
-        Document_img1 = Base64.encodeToString(b, Base64.DEFAULT);
-        return Document_img1;
-    }
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float)width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
         }
-        return Bitmap.createScaledBitmap(image, width, height, true);
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
     }
 
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
 }

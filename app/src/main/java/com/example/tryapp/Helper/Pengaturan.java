@@ -5,6 +5,11 @@ import java.util.Locale;
 
 public class Pengaturan {
 
+    public static final String GALANGAN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/galangan.php";
+    public static final String SELECT_GALANGAN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_galangan.php";
+    public static final String INSERT_DONASI = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/insert_donasi.php";
+    public static final String UPLOAD_IMG_DONASI = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/upload_donasi.php";
+
     public static String formatRupiah(Double number){
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
