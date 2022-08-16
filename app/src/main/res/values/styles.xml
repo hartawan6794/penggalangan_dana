@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryVariant</item>
     </style>
     <style name="AppTheme.BlueAccent">
         <item name="colorAccent">#12557f</item> <!-- Whatever color you want-->

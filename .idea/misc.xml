@@ -24,12 +24,26 @@
         <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/rvmain.xml" value="0.33" />
         <entry key="..\:/Users/Data Center/AndroidStudioProjects/tryApp/app/src/main/res/layout/slider_layout.xml" value="0.18697916666666667" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/bg_dana_detail.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/bg_donasi.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/bg_table.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/btn_blue.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/btn_register.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ed_login.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ed_register.xml" value="0.1945" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
-        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_detail_donasi.xml" value="0.1" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.1945" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_dashboard_member.xml" value="0.25" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_detail_donasi.xml" value="0.25" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_konfrim.xml" value="0.1" />
-        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/toolbar.xml" value="0.18" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/footer.xml" value="0.19895833333333332" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/rvmain.xml" value="0.2" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/toolbar.xml" value="0.33" />
       </map>
     </option>
   </component>
