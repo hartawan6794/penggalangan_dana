@@ -1,16 +1,10 @@
 package com.example.tryapp.Adapter;
 
-import static java.util.logging.Logger.global;
-
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,23 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.tryapp.DetailDonasiActivity;
 import com.example.tryapp.Helper.Pengaturan;
-import com.example.tryapp.MainActivity;
 import com.example.tryapp.R;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
@@ -44,6 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> arr_id,arr_nm_penggalang,arr_img,arr_judul,arr_dana,arr_menderita,arr_terkumpul;
     ProgressDialog progressDialog;
     Pengaturan p = new Pengaturan();
+    private int BATAS = 4;
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -115,6 +100,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return arr_nm_penggalang.size();
+        if(arr_id.size() < BATAS){
+            return arr_id.size();
+        }else {
+
+        return BATAS;
+        }
     }
 }

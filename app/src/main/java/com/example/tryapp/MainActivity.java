@@ -1,14 +1,10 @@
 package com.example.tryapp;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -26,12 +26,9 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.tryapp.Adapter.RecyclerViewAdapter;
 import com.example.tryapp.Adapter.SliderAdapter;
 import com.example.tryapp.Helper.Pengaturan;
+import com.example.tryapp.Helper.SettingSession;
 import com.example.tryapp.model.Slider;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-import com.squareup.picasso.Picasso;
-//import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,7 +37,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    SwipeRefreshLayout srl_main;
+    ImageView btn_login,iv_logo,iv_logout;
+    TextView tv_viewAll;
+//    SwipeRefreshLayout srl_main;
     RecyclerView rv_main;
     ArrayList<String> arr_id,arr_nm_penggalang,arr_judul,arr_dana,arr_menderita,arr_img,arr_terkumpul;
     ProgressDialog progressDialog;
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerViewAdapter recycleViewAdapter;
     Pengaturan p = new Pengaturan();
     boolean doubleBackToExitPressedOnce = false;
+    SettingSession ss;
 
     String url1 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-01.jpg";
     String url2 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-02.jpg";
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,9 +66,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ss = new SettingSession(this);
+
 //        srl_main    = findViewById(R.id.srl_main);
         rv_main     = findViewById(R.id.rv_main);
         SliderView sliderView = findViewById(R.id.slider);
+        btn_login = findViewById(R.id.btn_user);
+        iv_logo = findViewById(R.id.tv_header_title);
+        iv_logout = findViewById(R.id.iv_logout);
+        tv_viewAll = findViewById(R.id.vieAll);
+        iv_logo.setVisibility(View.VISIBLE);
+        btn_login.setVisibility(View.VISIBLE);
+
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,LoginActivity.class);
+//                finish();
+                onRestart();
+                startActivity(i);
+            }
+        });
 
         progressDialog = new ProgressDialog(this);
 
@@ -155,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
                             Boolean status = response.getBoolean("status");
                             if(status){
                                 JSONArray ja = response.getJSONArray("result");
-                                Log.d("respon",""+ja);
                                 for(int i = 0 ; i < ja.length() ; i++){
                                     JSONObject jo = ja.getJSONObject(i);
+
 
                                     arr_id.add(jo.getString("id_galang"));
                                     arr_nm_penggalang.add(jo.getString("nama_lengkap"));
@@ -169,6 +187,11 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 recycleViewAdapter = new RecyclerViewAdapter(getApplicationContext(),arr_id,arr_nm_penggalang,arr_judul,arr_dana,arr_menderita,arr_img,arr_terkumpul);
                                 rv_main.setAdapter(recycleViewAdapter);
+                                int batas = ja.length();
+//                                Log.d("BATAS", "BATAS : "+batas);
+                                if(batas >= 3){
+                                    tv_viewAll.setVisibility(View.VISIBLE);
+                                }
                             }else{
                                 Toast.makeText(getApplicationContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                                 recycleViewAdapter = new RecyclerViewAdapter(getApplicationContext(),arr_id,arr_nm_penggalang,arr_judul,arr_dana,arr_menderita,arr_img,arr_terkumpul);
@@ -207,4 +230,11 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent i = new Intent(this,MainActivity.class);
+        finish();
+        startActivity(i);
+    }
 }
