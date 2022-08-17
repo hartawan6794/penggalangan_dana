@@ -269,7 +269,7 @@
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_table"/>
+                    android:background="@drawable/ed_register"/>
                 <Button
                     android:id="@+id/post_poto_pasien"
                     android:text="Upload Gambar"
@@ -304,7 +304,7 @@
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_table"/>
+                    android:background="@drawable/ed_register"/>
 
                 <Button
                     android:id="@+id/post_poto_bukti"
