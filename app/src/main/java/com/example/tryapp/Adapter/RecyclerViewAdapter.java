@@ -100,11 +100,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        if(arr_id.size() < BATAS){
-            return arr_id.size();
-        }else {
+//        if(arr_id.size() < BATAS){
+//            return arr_id.size();
+//        }else {
+//
+//        return BATAS;
+//        }
+        return arr_id.size();
 
-        return BATAS;
-        }
     }
 }

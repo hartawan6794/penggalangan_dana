@@ -189,9 +189,9 @@ public class MainActivity extends AppCompatActivity {
                                 rv_main.setAdapter(recycleViewAdapter);
                                 int batas = ja.length();
 //                                Log.d("BATAS", "BATAS : "+batas);
-                                if(batas >= 3){
-                                    tv_viewAll.setVisibility(View.VISIBLE);
-                                }
+//                                if(batas >= 3){
+//                                    tv_viewAll.setVisibility(View.VISIBLE);
+//                                }
                             }else{
                                 Toast.makeText(getApplicationContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                                 recycleViewAdapter = new RecyclerViewAdapter(getApplicationContext(),arr_id,arr_nm_penggalang,arr_judul,arr_dana,arr_menderita,arr_img,arr_terkumpul);

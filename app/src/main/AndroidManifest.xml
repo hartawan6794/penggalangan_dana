@@ -16,6 +16,21 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".GalanganDanaUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FormTambahGalanganActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailRiwayatDonasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RiwayatGalanganActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".Dashboard_Member_Activity"
             android:exported="false" />
         <activity
