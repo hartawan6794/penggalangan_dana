@@ -37,11 +37,18 @@
         <entry key="..\:/android studio/tryApp/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.1945" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_dashboard_member.xml" value="0.25" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_detail_donasi.xml" value="0.25" />
-        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_konfrim.xml" value="0.1" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_detail_riwayat_donasi.xml" value="0.33" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_form_tambah_galangan.xml" value="0.2974438419829589" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_galangan_dana_user.xml" value="0.22" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_konfrim.xml" value="0.25" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_profile_user.xml" value="0.33" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/activity_riwayat_galangan.xml" value="0.23222748815165878" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/footer.xml" value="0.19895833333333332" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/rv_riwayat.xml" value="0.22" />
+        <entry key="..\:/android studio/tryApp/app/src/main/res/layout/rvgalanganuser.xml" value="0.22" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/rvmain.xml" value="0.2" />
         <entry key="..\:/android studio/tryApp/app/src/main/res/layout/toolbar.xml" value="0.33" />
       </map>

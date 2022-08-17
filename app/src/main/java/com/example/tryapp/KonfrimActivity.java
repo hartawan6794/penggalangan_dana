@@ -17,8 +17,11 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -57,10 +60,10 @@ public class KonfrimActivity extends AppCompatActivity {
 
     final Calendar myCalendar= Calendar.getInstance();
     ImageView iv_view;
-    String value,tanggal,nama,email,gambar;
+    String value,tanggal,nama,email,gambar = "post";
     String nominal;
     EditText ed_date,ed_nm,ed_email,ed_nominal;
-    Button bt_kirim,btn_upload;
+    Button bt_kirim,btn_upload,bt_batal;
     ProgressDialog progressDialog;
     private String Document_img1="";
     //storage permission code
@@ -74,10 +77,10 @@ public class KonfrimActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             value = extras.getString("id");
-            //Requesting storage permission
             requestStoragePermission();
-            //The key argument here must match that used in the other activity
         }
+
+        initToolbar();;
 
 
         progressDialog = new ProgressDialog(this);
@@ -88,6 +91,7 @@ public class KonfrimActivity extends AppCompatActivity {
         bt_kirim = findViewById(R.id.btn_kirim);
         iv_view = findViewById(R.id.viewImage);
         btn_upload = findViewById(R.id.post_gambar);
+        bt_batal = findViewById(R.id.bt_batal);
 
         DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -110,15 +114,60 @@ public class KonfrimActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                progressDialog.setMessage("Mengirim Data.....");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-                tanggal = ed_date.getText().toString();
-                nama = ed_nm.getText().toString();
-                email = ed_email.getText().toString();
-                nominal = ed_nominal.getText().toString().trim();
+                if(ed_date.getText().toString().equals("")){
+                    ed_date.setError("Tanggal belum di pilih");
+                    ed_date.requestFocus();
+                }else{
+                    if(ed_email.getText().toString().contains(" ")){
+                        ed_email.setError("Email tidak valid");
+                        ed_email.requestFocus();
+                    }else{
+                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(ed_email.getText().toString().trim()).matches()){
+                            ed_email.setError("Email tidak valid");
+                            ed_email.requestFocus();
+                        }else{
+                            if(ed_nominal.getText().toString().equals("")){
+                                ed_nominal.setError("Nominal belum di isi");
+                                ed_nominal.requestFocus();
+                            }else{
+                                if(gambar == "post"){
+                                    btn_upload.setError("Belum upload bukti transfer");
+                                }else{
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(KonfrimActivity.this);
+                                    builder.setCancelable(true);
+                                    builder.setTitle("Konfirmasi Data");
+                                    builder.setMessage("Anda yakin data sudah sesuai ?");
+                                    builder.setPositiveButton("Ya",
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    progressDialog.setMessage("Mengirim Data.....");
+                                                    progressDialog.setCancelable(false);
+                                                    progressDialog.show();
+                                                    tanggal = ed_date.getText().toString();
+                                                    nama = ed_nm.getText().toString();
+                                                    email = ed_email.getText().toString();
+                                                    nominal = ed_nominal.getText().toString().trim();
 
-                kirimDonasi();
+                                                    kirimDonasi();
+                                                }
+                                            });
+                                    builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    });
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
 
             }
         });
@@ -130,7 +179,29 @@ public class KonfrimActivity extends AppCompatActivity {
 
             }
         });
+        bt_batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
+
+    private void initToolbar(){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Form Donasi");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
     private void updateLabel(){
         String myFormat="yyyy-MM-dd";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
@@ -247,6 +318,11 @@ public class KonfrimActivity extends AppCompatActivity {
                             @Override
                             public void onProgress(long bytesUploaded, long totalBytes) {
                                 // do anything with progress
+                                int peroses = (int) ((bytesUploaded/totalBytes) *100);
+                                progressDialog.setMessage("Sedang Mengupload \n"+ peroses + " %");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
+
                                 Log.d("progress", "onProgress: "+(bytesUploaded / totalBytes)*100 + " %");
                             }
                         })
@@ -255,6 +331,7 @@ public class KonfrimActivity extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 Log.d("response", "onResponse: "+response);
 
+                                progressDialog.dismiss();
                                 try{
                                     Boolean status = response.getBoolean("success");
                                     if(status){

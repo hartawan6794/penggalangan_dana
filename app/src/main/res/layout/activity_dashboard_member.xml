@@ -34,6 +34,7 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -63,6 +64,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/riwayat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -103,6 +105,7 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/tambah_galangan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -132,6 +135,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/daftar_golongan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

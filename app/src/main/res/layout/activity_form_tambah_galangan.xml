@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FormTambahGalanganActivity">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/toolbar"
+            android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_form"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        tools:ignore="MissingConstraints"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:text="Judul"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/post_judul"
+                    android:layout_weight="1"
+                    android:hint="Judul Galangan Dana "
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ed_register"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Nama Lengkap"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/post_nama"
+                    android:layout_weight="1"
+                    android:hint="Nama Lengkap"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@drawable/ed_register"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Nama Penyakit"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/post_penyakit"
+                    android:layout_weight="1"
+                    android:hint="Nama Penyakit"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@drawable/ed_register"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Alamat Pasien"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/post_alamat"
+                    android:layout_weight="1"
+                    android:hint="Alamat pasien.. "
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ed_register"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Tentang Penyakit"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/post_tentang"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:hint="Judul Galangan Dana "
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@drawable/ed_register"
+                    android:layout_height="100dp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Tanggal Mulai Penggalangan"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/post_tgl_mulai"
+                    android:layout_weight="1"
+                    android:hint="Tanggal Mulai Penggalangan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+
+                    android:layout_margin="10dp"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Tanggal Selesai Penggalangan"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/post_tgl_selesai"
+                    android:layout_weight="1"
+                    android:hint="Tanggal Selesai Penggalangan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:layout_margin="10dp"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:text="Dana yang dibutuhkan"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/post_dana"
+                    android:layout_weight="1"
+
+                    android:layout_margin="10dp"
+                    android:inputType="number"
+                    android:hint="Judul Galangan Dana "
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@drawable/ed_register"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:text="Unggah Poto Pasien"
+                    android:textColor="@color/black" />
+                <ImageView
+                    android:id="@+id/viewImage"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_table"/>
+                <Button
+                    android:id="@+id/post_poto_pasien"
+                    android:text="Upload Gambar"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/btn_blue"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:text="Unggah Poto Bukti Surat Sakit"
+                    android:textColor="@color/black" />
+                <ImageView
+                    android:id="@+id/viewBukti"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_table"/>
+
+                <Button
+                    android:id="@+id/post_poto_bukti"
+                    android:text="Upload Gambar"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/btn_blue"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/btn_simpan"
+                    android:text="Simpan"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_blue"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/btn_batal"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:text="Batal"
+                    android:textAllCaps="false"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+        <include
+            layout="@layout/footer"
+            android:id="@+id/footer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"/>
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

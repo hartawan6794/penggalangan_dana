@@ -38,9 +38,8 @@ public class DetailDonasiActivity extends AppCompatActivity {
     ArrayList<String> arr_nama,arr_norek;
     ArrayList<Integer> arr_logo;
     ImageView iv_pasien;
-    Galang g;
-    ProgressDialog progressDialog;
     ProgressBar pb;
+    ProgressDialog progressDialog;
     Pengaturan p = new Pengaturan();
     RecyclerView rv_rek;
     RekeningAdapter ra;
