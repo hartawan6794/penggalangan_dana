@@ -102,8 +102,8 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
                                 String judul = jo.getString("judul");
                                 tv_nm_penggalang.setText(jo.getString("nama_lengkap"));
                                 tv_judul.setText("Detail Galangan Dana : "+judul);
-                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/images/"+jo.getString("gambar")).into(img_gambar);
-                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/images/"+jo.getString("bukti")).into(img_bukti);
+                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+jo.getString("gambar")).into(img_gambar);
+                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+jo.getString("bukti")).into(img_bukti);
 
                                 tv_nm_pasien.setText(jo.getString("nama_pasien"));
                                 tv_penyakit.setText(jo.getString("menderita"));
