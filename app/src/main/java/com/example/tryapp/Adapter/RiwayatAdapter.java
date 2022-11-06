@@ -62,7 +62,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
         holder.tv_dana.setText("Jumlah Penggalangan "+p.formatRupiah(Double.valueOf(arr_dana.get(position))));
         holder.tv_terkumpul.setText("Terkumpul " +p.formatRupiah(Double.valueOf(arr_terkumpul.get(position))));
         Picasso.get()
-                .load("https://penggalangandanakanker.ptmutiaraferindo.my.id/images/"+arr_img.get(position))
+                .load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+arr_img.get(position))
                 .into(holder.img_g);
 
         holder.bt_bio.setOnClickListener(new View.OnClickListener() {

@@ -85,7 +85,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_menderita.setText(arr_menderita.get(position));
         holder.tv_proses.setText(String.valueOf(df.format(progress))+"%");
         holder.pb_dana.setProgress((int) progress);
-        Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/images/"+arr_img.get(position))
+        Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+arr_img.get(position))
                 .placeholder(R.drawable.wtf).into(holder.iv_img);
         holder.btn_donasi.setOnClickListener(new View.OnClickListener() {
             @Override

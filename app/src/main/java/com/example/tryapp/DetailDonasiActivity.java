@@ -140,7 +140,7 @@ public class DetailDonasiActivity extends AppCompatActivity {
 //                                Log.d("respon",""+ja);
                                 JSONObject jo = ja.getJSONObject(0);
                                 tv_judul.setText("Detail Galangan Dana : "+jo.getString("judul"));
-                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/images/"+jo.getString("gambar")).into(iv_pasien);
+                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+jo.getString("gambar")).into(iv_pasien);
                                 tv_nm_penggalang.setText(jo.getString("nama_lengkap"));
                                 tv_nm_pasien.setText(jo.getString("nama_pasien"));
                                 tv_penyakit.setText(jo.getString("menderita"));
