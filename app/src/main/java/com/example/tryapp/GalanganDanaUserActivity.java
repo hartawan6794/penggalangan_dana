@@ -33,6 +33,7 @@ public class GalanganDanaUserActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SettingSession ss;
     Pengaturan p;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,64 +54,70 @@ public class GalanganDanaUserActivity extends AppCompatActivity {
 
         String id = ss.readSetting("id_user");
 
-        getData(id);
+        if(id == "1"){
+            url = p.SELECT_GALANGAN_ADMIN_URL;
+        }else{
+            url = p.SELECT_GALANGAN_USER_URL;
+        }
+
+        getData(id,url);
+//        getData(id);
 
 
     }
 
-        private void getData(String id){
-            initArray();
-            AndroidNetworking.post(p.SELECT_GALANGAN_USER_URL)
-                    .addBodyParameter("id_member",""+id)
-                    .setTag("Get Data")
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            progressDialog.dismiss();
-                            Log.d("respone", "onResponse: "+response);
-                            try{
-                                Boolean status = response.getBoolean("status");
-                                if(status){
-                                    JSONArray ja = response.getJSONArray("result");
-                                    for(int i = 0 ; i < ja.length() ; i++){
-                                        JSONObject jo = ja.getJSONObject(i);
+    private void getData(String id,String url){
+        initArray();
+        AndroidNetworking.post(url)
+                .addBodyParameter("id_member",""+id)
+                .setTag("Get Data")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        progressDialog.dismiss();
+                        Log.d("respone", "onResponse: "+response);
+                        try{
+                            Boolean status = response.getBoolean("status");
+                            if(status){
+                                JSONArray ja = response.getJSONArray("result");
+                                for(int i = 0 ; i < ja.length() ; i++){
+                                    JSONObject jo = ja.getJSONObject(i);
 
-
-                                        arr_nama.add(jo.getString("nama_pasien"));
-                                        arr_judul.add(jo.getString("judul"));
-                                        arr_penyakit.add(jo.getString("menderita"));
-                                        arr_alamat.add(jo.getString("alamat"));
-                                        arr_tgl_mulai.add(jo.getString("tgl_mulai"));
-                                        arr_tgl_selesai.add(jo.getString("tgl_selesai"));
-                                        arr_dana.add(jo.getString("dana"));
-                                        arr_terkumpul.add(jo.getString("terkumpul"));
-                                        arr_img.add(jo.getString("gambar"));
-                                        arr_status.add(jo.getString("status"));
-                                    }
-                                    adapter = new GalanganUserAdapter(getApplicationContext(),arr_judul,arr_nama,arr_penyakit,arr_alamat,arr_tgl_mulai,arr_tgl_selesai,arr_dana,arr_terkumpul,arr_img,arr_status);
-                                    rv_main.setAdapter(adapter);
-                                }else{
-                                    Toast.makeText(getApplicationContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
-
-                                    adapter = new GalanganUserAdapter(getApplicationContext(),arr_judul,arr_nama,arr_penyakit,arr_alamat,arr_tgl_mulai,arr_tgl_selesai,arr_dana,arr_terkumpul,arr_img,arr_status);
-                                    rv_main.setAdapter(adapter);
+                                    arr_nama.add(jo.getString("nama_pasien"));
+                                    arr_judul.add(jo.getString("judul"));
+                                    arr_penyakit.add(jo.getString("menderita"));
+                                    arr_alamat.add(jo.getString("alamat"));
+                                    arr_tgl_mulai.add(jo.getString("tgl_mulai"));
+                                    arr_tgl_selesai.add(jo.getString("tgl_selesai"));
+                                    arr_dana.add(jo.getString("dana"));
+                                    arr_terkumpul.add(jo.getString("terkumpul"));
+                                    arr_img.add(jo.getString("gambar"));
+                                    arr_status.add(jo.getString("status"));
                                 }
-                            }
-                            catch (Exception e){
-                                e.printStackTrace();
-                            }
+                                adapter = new GalanganUserAdapter(getApplicationContext(),arr_judul,arr_nama,arr_penyakit,arr_alamat,arr_tgl_mulai,arr_tgl_selesai,arr_dana,arr_terkumpul,arr_img,arr_status);
+                                rv_main.setAdapter(adapter);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
 
+//                                    adapter = new GalanganUserAdapter(getApplicationContext(),arr_judul,arr_nama,arr_penyakit,arr_alamat,arr_tgl_mulai,arr_tgl_selesai,arr_dana,arr_terkumpul,arr_img,arr_status);
+//                                    rv_main.setAdapter(adapter);
+                            }
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
                         }
 
-                        @Override
-                        public void onError(ANError anError) {
+                    }
 
-                        }
-                    });
+                    @Override
+                    public void onError(ANError anError) {
 
-        }
+                    }
+                });
+
+    }
 
     private void initToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);

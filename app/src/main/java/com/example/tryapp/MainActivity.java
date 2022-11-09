@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 //                                    tv_viewAll.setVisibility(View.VISIBLE);
 //                                }
                             }else{
-                                Toast.makeText(getApplicationContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Tidak ada data yang ditemukan", Toast.LENGTH_SHORT).show();
                                 recycleViewAdapter = new RecyclerViewAdapter(getApplicationContext(),arr_id,arr_nm_penggalang,arr_judul,arr_dana,arr_menderita,arr_img,arr_terkumpul);
                                 rv_main.setAdapter(recycleViewAdapter);
                             }

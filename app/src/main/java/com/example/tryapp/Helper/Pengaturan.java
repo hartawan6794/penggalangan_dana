@@ -11,8 +11,10 @@ public class Pengaturan {
     public static final String INSERT_GALANGAN = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/insert_galangan.php";
     public static final String SELECT_GALANGAN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_galangan.php";
     public static final String SELECT_GALANGAN_USER_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_galangan_user.php";
+    public static final String SELECT_GALANGAN_ADMIN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_galangan_admin.php";
     public static final String RIWAYAT_GALANGAN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/galangan_selesai.php";
     public static final String SELECT_DETAIL_RIWAYAT_GALANGAN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_galangan_selesai.php";
+    public static final String SELECT_DETAIL_RIWAYAT_GALANGAN_ADMIN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/select_galangan_selesai_admin.php";
     public static final String INSERT_DONASI = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/insert_donasi.php";
     public static final String UPLOAD_IMG_DONASI = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/upload_donasi.php";
     public static final String LOGIN_URL = "https://penggalangandanakanker.ptmutiaraferindo.my.id/json/login.php";

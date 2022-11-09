@@ -108,9 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
             bt_simpan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    progressDialog.setMessage("Mengambil Data.....");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
+
                     nik = ed_nik.getText().toString();
                     nama = ed_nama.getText().toString();
                     user = ed_user.getText().toString();
@@ -171,6 +169,9 @@ public class RegisterActivity extends AppCompatActivity {
                                                     ed_telp.requestFocus();
                                                     ed_telp.setError("Masukan nomor telpon anda");
                                                 }else{
+                                                    progressDialog.setMessage("Mengirim Data.....");
+                                                    progressDialog.setCancelable(false);
+                                                    progressDialog.show();
                                                     insert_data(nik, nama, user, pass, jk_s, pekerjaan, alamat, telp);
                                                 }
                                             }
@@ -222,6 +223,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
+                        progressDialog.dismiss();
                         Log.d("responEdit","gagal");
                     }
                 });

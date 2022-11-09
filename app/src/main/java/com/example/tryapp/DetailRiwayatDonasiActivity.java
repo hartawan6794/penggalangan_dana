@@ -28,6 +28,7 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     Pengaturan p = new Pengaturan();
     String id;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,13 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
         initToolbar();
         initVariable();
         progress();
+        if(id == "1"){
+            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_ADMIN_URL;
+        }else{
+            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_URL;
+        }
 
-        getData(id);
+        getData(id,url);
 
 
     }
@@ -81,8 +87,8 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
         });
     }
 
-    private void getData(String id){
-        AndroidNetworking.post(p.SELECT_DETAIL_RIWAYAT_GALANGAN_URL)
+    private void getData(String id, String url){
+        AndroidNetworking.post(url)
                 .addBodyParameter("id",""+id)
                 .setPriority(Priority.MEDIUM)
                 .build()
