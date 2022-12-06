@@ -101,8 +101,6 @@ public class GalanganDanaUserActivity extends AppCompatActivity {
                             }else{
                                 Toast.makeText(getApplicationContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
 
-//                                    adapter = new GalanganUserAdapter(getApplicationContext(),arr_judul,arr_nama,arr_penyakit,arr_alamat,arr_tgl_mulai,arr_tgl_selesai,arr_dana,arr_terkumpul,arr_img,arr_status);
-//                                    rv_main.setAdapter(adapter);
                             }
                         }
                         catch (Exception e){
