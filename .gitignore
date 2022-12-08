@@ -9,6 +9,7 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+/src/main/java/com/example/tyapp/helper
 /captures
 .externalNativeBuild
 .cxx
