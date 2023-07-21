@@ -209,7 +209,7 @@ public class KonfrimActivity extends AppCompatActivity {
     }
 
     void kirimDonasi(){
-        AndroidNetworking.post(p.URL_API)
+        AndroidNetworking.post(p.URL_API+"/postDonasi")
                 .addBodyParameter("tgl_transfer",""+tanggal)
                 .addBodyParameter("nominal",""+nominal)
                 .addBodyParameter("nama",""+nama)
@@ -308,7 +308,7 @@ public class KonfrimActivity extends AppCompatActivity {
                 AndroidNetworking.initialize(KonfrimActivity.this,client);
 
 
-                AndroidNetworking.upload(p.URL_API)
+                AndroidNetworking.upload(p.URL_API+"/uploadFile")
                         .addMultipartFile("file",imageFile)
                         //.addMultipartParameter("key","value")
                         //.setTag("uploadTest")
@@ -335,7 +335,7 @@ public class KonfrimActivity extends AppCompatActivity {
                                 try{
                                     Boolean status = response.getBoolean("success");
                                     if(status){
-                                        Toast.makeText(KonfrimActivity.this, "Berhasil Mengupload", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(KonfrimActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                                     }
                                 }catch (Exception e){
                                     e.printStackTrace();
@@ -344,7 +344,7 @@ public class KonfrimActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(ANError anError) {
-                                Log.d("response", "onResponse: "+anError);
+                                Log.d("response", "onResponse: "+anError.getErrorBody());
 
                             }
                         });

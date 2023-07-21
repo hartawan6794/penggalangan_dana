@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class Pengaturan {
 
-    public static final String URL_API = "https://penggalangandanakanker.grosirsalsabila.my.id/api";
+        public static final String URL_API = "https://penggalangandanakanker.grosirsalsabila.my.id/api";
 
     public static String formatRupiah(Double number){
         Locale localeID = new Locale("in", "ID");
