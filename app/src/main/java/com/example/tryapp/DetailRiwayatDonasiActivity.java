@@ -41,11 +41,11 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
         initToolbar();
         initVariable();
         progress();
-        if(id == "1"){
-            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_ADMIN_URL;
-        }else{
-            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_URL;
-        }
+//        if(id == "1"){
+//            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_ADMIN_URL;
+//        }else{
+//            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_URL;
+//        }
 
         getData(id,url);
 

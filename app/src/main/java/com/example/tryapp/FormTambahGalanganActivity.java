@@ -318,7 +318,7 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
         AndroidNetworking.initialize(FormTambahGalanganActivity.this,client);
 
 
-        AndroidNetworking.upload(p.UPLOAD_IMG_DONASI)
+        AndroidNetworking.upload(p.URL_API)
                 .addMultipartFile("file",file)
                 //.addMultipartParameter("key","value")
                 //.setTag("uploadTest")
@@ -422,7 +422,7 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
         String tgl_selesai = ed_tgl_selesai.getText().toString();
         String dana = ed_dana.getText().toString();
         String id = ss.readSetting("id_user");
-        AndroidNetworking.post(p.INSERT_GALANGAN)
+        AndroidNetworking.post(p.URL_API)
                 .addBodyParameter("id_member",""+id)
                 .addBodyParameter("judul",""+judul)
                 .addBodyParameter("nama_pasien",""+nama)

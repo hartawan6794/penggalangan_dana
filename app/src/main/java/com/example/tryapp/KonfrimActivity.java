@@ -209,7 +209,7 @@ public class KonfrimActivity extends AppCompatActivity {
     }
 
     void kirimDonasi(){
-        AndroidNetworking.post(p.INSERT_DONASI)
+        AndroidNetworking.post(p.URL_API)
                 .addBodyParameter("tgl_transfer",""+tanggal)
                 .addBodyParameter("nominal",""+nominal)
                 .addBodyParameter("nama",""+nama)
@@ -308,7 +308,7 @@ public class KonfrimActivity extends AppCompatActivity {
                 AndroidNetworking.initialize(KonfrimActivity.this,client);
 
 
-                AndroidNetworking.upload(p.UPLOAD_IMG_DONASI)
+                AndroidNetworking.upload(p.URL_API)
                         .addMultipartFile("file",imageFile)
                         //.addMultipartParameter("key","value")
                         //.setTag("uploadTest")

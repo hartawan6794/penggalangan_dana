@@ -99,6 +99,7 @@ public class DetailDonasiActivity extends AppCompatActivity {
         progressDialog.setMessage("Mengambil Data.....");
         progressDialog.setCancelable(false);
         progressDialog.show();
+        Log.d("TAG", "onCreate: "+value);
         getGalangSelected(value);
         getDataRekening();
         btn_konfirm.setOnClickListener(new View.OnClickListener() {
@@ -123,24 +124,23 @@ public class DetailDonasiActivity extends AppCompatActivity {
     }
 
     void getGalangSelected(String id){
-        AndroidNetworking.post(p.SELECT_GALANGAN_URL)
-                .addBodyParameter("id",""+id)
+        AndroidNetworking.get(p.URL_API+"/detailDonasi")
+                .addQueryParameter("id",id)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                                progressDialog.dismiss();
-//                        Log.d("responEdit",""+response);
+                    progressDialog.dismiss();
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
 
                                 JSONArray ja = response.getJSONArray("result");
-//                                Log.d("respon",""+ja);
+                                Log.d("respon",""+ja);
                                 JSONObject jo = ja.getJSONObject(0);
                                 tv_judul.setText("Detail Galangan Dana : "+jo.getString("judul"));
-                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+jo.getString("gambar")).into(iv_pasien);
+                                Picasso.get().load(p.URL_API+"/img/"+jo.getString("gambar")).into(iv_pasien);
                                 tv_nm_penggalang.setText(jo.getString("nama_lengkap"));
                                 tv_nm_pasien.setText(jo.getString("nama_pasien"));
                                 tv_penyakit.setText(jo.getString("menderita"));
@@ -160,7 +160,8 @@ public class DetailDonasiActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("responEdit","gagal");
+                        progressDialog.dismiss();
+                        Log.d("error",anError.getResponse().toString());
                     }
                 });
         }

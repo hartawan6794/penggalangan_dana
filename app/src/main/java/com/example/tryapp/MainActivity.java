@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getData(){
         initializeArray();
-        AndroidNetworking.get(p.GALANGAN_URL)
+        AndroidNetworking.get(p.URL_API+"/getDataGalangan")
                 .setTag("Get Data")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -175,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
                                 JSONArray ja = response.getJSONArray("result");
                                 for(int i = 0 ; i < ja.length() ; i++){
                                     JSONObject jo = ja.getJSONObject(i);
-
 
                                     arr_id.add(jo.getString("id_galang"));
                                     arr_nm_penggalang.add(jo.getString("nama_lengkap"));
@@ -206,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-
+                        progressDialog.dismiss();
+                        Log.d("TAG", "onError: "+anError.getErrorBody());
                     }
                 });
     }

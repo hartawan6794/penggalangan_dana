@@ -54,11 +54,11 @@ public class GalanganDanaUserActivity extends AppCompatActivity {
 
         String id = ss.readSetting("id_user");
 
-        if(id == "1"){
-            url = p.SELECT_GALANGAN_ADMIN_URL;
-        }else{
-            url = p.SELECT_GALANGAN_USER_URL;
-        }
+//        if(id == "1"){
+//            url = p.SELECT_GALANGAN_ADMIN_URL;
+//        }else{
+//            url = p.SELECT_GALANGAN_USER_URL;
+//        }
 
         getData(id,url);
 //        getData(id);

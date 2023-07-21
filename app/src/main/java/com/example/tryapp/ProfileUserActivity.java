@@ -74,7 +74,7 @@ public class ProfileUserActivity extends AppCompatActivity implements View.OnCli
 
 
     private void getData(String id){
-        AndroidNetworking.post(p.SELECT_MEMBER)
+        AndroidNetworking.post(p.URL_API)
                 .addBodyParameter("id",""+id)
                 .setPriority(Priority.MEDIUM)
                 .build()

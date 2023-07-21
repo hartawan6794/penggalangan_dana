@@ -91,7 +91,7 @@ public class RiwayatGalanganActivity extends AppCompatActivity {
 
     private void getData(){
         initArray();
-        AndroidNetworking.get(p.RIWAYAT_GALANGAN_URL)
+        AndroidNetworking.get(p.URL_API)
                 .setTag("Get Data")
                 .setPriority(Priority.MEDIUM)
                 .build()

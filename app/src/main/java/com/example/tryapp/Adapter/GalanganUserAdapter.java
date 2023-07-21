@@ -75,7 +75,7 @@ public class GalanganUserAdapter extends RecyclerView.Adapter<GalanganUserAdapte
         holder.tv_terkumpul.setText(arr_terkumpul.get(position));
         holder.tv_dana.setText(arr_dana.get(position));
         holder.tv_status.setText(arr_status.get(position));
-        Picasso.get().load(p.PATH_IMAGE + arr_img.get(position)).into(holder.iv_img);
+//        Picasso.get().load(p.PATH_IMAGE + arr_img.get(position)).into(holder.iv_img);
 
     }
 

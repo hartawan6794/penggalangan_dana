@@ -91,24 +91,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String user,String pass) {
-        AndroidNetworking.post(p.LOGIN_URL)
-                .addBodyParameter("user",""+user)
-                .addBodyParameter("pass", pass)
+        AndroidNetworking.get(p.URL_API+"/login")
+                .addQueryParameter("user",user)
+                .addQueryParameter("pass", pass)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-                        Log.d("responEdit",""+response);
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
-
-                                JSONArray ja = response.getJSONArray("result");
-                                Log.d("respon",""+ja);
-                                JSONObject jo = ja.getJSONObject(0);
-                                Log.d("json object", "onResponse: "+jo);
+                                JSONObject jo = response.getJSONObject("result");
+//                                JSONObject jo = ja.getJSONObject(0);
+//                                Log.d("json object", "onResponse: "+jo);
                                 ss.addUpdateSettings("name",jo.getString("username"));
                                 ss.addUpdateSettings("id_user",jo.getString("id_user"));
                                 ss.addUpdateSettings("level",jo.getString("level"));

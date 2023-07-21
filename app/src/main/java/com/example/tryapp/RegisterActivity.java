@@ -187,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void insert_data(String nik, String nama, String user,String pass,String jk, String pekerjaan, String alamat, String telp ){
-        AndroidNetworking.post(p.INSERT_MEMBER)
+        AndroidNetworking.post(p.URL_API)
                 .addBodyParameter("nik",""+nik)
                 .addBodyParameter("nama",""+nama)
                 .addBodyParameter("user",""+user)
@@ -230,7 +230,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void getData(String id){
-        AndroidNetworking.post(p.SELECT_MEMBER)
+        AndroidNetworking.post(p.URL_API)
                 .addBodyParameter("id",""+id)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -275,7 +275,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void update_data(String id, String nama, String user,String pass,String jk, String pekerjaan, String alamat, String telp){
-        AndroidNetworking.post(p.UPDATE_MEMBER)
+        AndroidNetworking.post(p.URL_API)
                 .addBodyParameter("id",""+id)
                 .addBodyParameter("nama",""+nama)
                 .addBodyParameter("user",""+user)
