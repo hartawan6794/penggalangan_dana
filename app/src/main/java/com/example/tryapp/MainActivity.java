@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     SettingSession ss;
 
-    String url1 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-01.jpg";
-    String url2 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-02.jpg";
-    String url3 = "https://penggalangandanakanker.ptmutiaraferindo.my.id/images/slider-03.jpg";
+    String url1 = p.URL_API+"/img/slider1.jpg";
+    String url2 = p.URL_API+"/img/slider2.jpg";
+    String url3 = p.URL_API+"/img/slider3.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

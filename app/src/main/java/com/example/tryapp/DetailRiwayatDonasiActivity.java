@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 public class DetailRiwayatDonasiActivity extends AppCompatActivity {
 
+    private final static String TAG = "DetailRiwayatActivity";
     ImageView img_gambar,img_bukti;
     TextView tv_nm_penggalang,tv_nm_pasien,tv_penyakit,tv_alamat,tv_tentang,tv_dana,tv_judul,tv_terkumpul;
     ProgressDialog progressDialog;
@@ -41,15 +42,7 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
         initToolbar();
         initVariable();
         progress();
-//        if(id == "1"){
-//            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_ADMIN_URL;
-//        }else{
-//            url = p.SELECT_DETAIL_RIWAYAT_GALANGAN_URL;
-//        }
-
-        getData(id,url);
-
-
+        getData(id);
     }
 
     private void progress(){
@@ -87,40 +80,34 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
         });
     }
 
-    private void getData(String id, String url){
-        AndroidNetworking.post(url)
-                .addBodyParameter("id",""+id)
+    private void getData(String id){
+        AndroidNetworking.get(p.URL_API+"/galangan")
+                .addQueryParameter("id",id)
+                .addQueryParameter("type","satuan")
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-                        Log.d("responEdit",""+response);
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
-
-                                JSONArray ja = response.getJSONArray("result");
-//                                Log.d("respon",""+ja);
-                                JSONObject jo = ja.getJSONObject(0);
-//                                Log.d("respon",""+jo);
+//                                JSONArray ja = response.getJSONArray("status");
+                                JSONObject jo = response.getJSONObject("result");
                                 String judul = jo.getString("judul");
                                 tv_nm_penggalang.setText(jo.getString("nama_lengkap"));
                                 tv_judul.setText("Detail Galangan Dana : "+judul);
-                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+jo.getString("gambar")).into(img_gambar);
-                                Picasso.get().load("https://penggalangandanakanker.ptmutiaraferindo.my.id/json/images/"+jo.getString("bukti")).into(img_bukti);
-
+                                Picasso.get().load(p.URL_API+"/img/"+jo.getString("gambar")).into(img_gambar);
+                                Picasso.get().load(p.URL_API+"/img/"+jo.getString("bukti")).into(img_bukti);
                                 tv_nm_pasien.setText(jo.getString("nama_pasien"));
                                 tv_penyakit.setText(jo.getString("menderita"));
                                 tv_alamat.setText(jo.getString("alamat"));
                                 tv_tentang.setText(jo.getString("deskripsi"));
                                 tv_dana.setText(p.formatRupiah(Double.valueOf(jo.getString("dana"))));
                                 tv_terkumpul.setText(p.formatRupiah(Double.valueOf(jo.getString("terkumpul"))));
-//                                Toast.makeText(DetailRiwayatDonasiActivity.this, ""+jo.getString("judul"), Toast.LENGTH_SHORT).show();
-
                             }else{
-
+                                Toast.makeText(DetailRiwayatDonasiActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception e){
                             e.printStackTrace();
@@ -129,7 +116,8 @@ public class DetailRiwayatDonasiActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("responEdit","gagal");
+                        progressDialog.dismiss();
+                        Log.d(TAG,"ERROR: "+anError.getErrorBody());
                     }
                 });
     }

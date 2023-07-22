@@ -230,9 +230,8 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
                 File imageFile = new File(imagepath);
                 poto_pasien =getFileName(selectedImageUri);
 //                Log.d("name image", "name " +nama);
-                Picasso.get().load(selectedImageUri).fit().into(iv_poto);
                 bt_post_poto.setVisibility(View.GONE);
-                uploadToServer(imageFile);
+                uploadToServer(imageFile,selectedImageUri,1);
 
             }if (requestCode == 2) {
                 final Uri selectedImageUri = data.getData();
@@ -240,9 +239,8 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
                 File imageFile = new File(imagepath);
                 poto_bukti =getFileName(selectedImageUri);
 //                Log.d("name image", "name " +nama);
-                Picasso.get().load(selectedImageUri).fit().into(iv_bukti);
                 bt_post_bukti.setVisibility(View.GONE);
-                uploadToServer(imageFile);
+                uploadToServer(imageFile,selectedImageUri,2);
 
             }
         }
@@ -310,7 +308,10 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
         }
     }
 
-    private void uploadToServer(File file){
+    private void uploadToServer(File file, Uri imageUri, int type){
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Mengunggah file anda. . .");
+        progressDialog.show();
         OkHttpClient client = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(false)
                 .build();
@@ -318,10 +319,9 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
         AndroidNetworking.initialize(FormTambahGalanganActivity.this,client);
 
 
-        AndroidNetworking.upload(p.URL_API)
-                .addMultipartFile("file",file)
-                //.addMultipartParameter("key","value")
-                //.setTag("uploadTest")
+        AndroidNetworking.upload(p.URL_API+"/uploadFile")
+                .addMultipartFile("img",file)
+                .setTag("uploadTest")
                 .setPriority(Priority.HIGH)
                 .build()
                 .setUploadProgressListener(new UploadProgressListener() {
@@ -339,11 +339,15 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-                        Log.d("response", "onResponse: "+response);
                         try{
-                            Boolean status = response.getBoolean("success");
+                            Boolean status = response.getBoolean("status");
                             if(status){
                                 Toast.makeText(FormTambahGalanganActivity.this, "Berhasil Mengupload", Toast.LENGTH_SHORT).show();
+                                if(type == 1){
+                                    Picasso.get().load(imageUri).fit().into(iv_poto);
+                                }else{
+                                    Picasso.get().load(imageUri).fit().into(iv_bukti);
+                                }
                             }
                         }catch (Exception e){
                             e.printStackTrace();
@@ -352,7 +356,8 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("response", "onResponse: "+anError);
+                        progressDialog.dismiss();
+                        Log.d("response", "onResponse: "+anError.getErrorBody());
 
                     }
                 });
@@ -422,18 +427,18 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
         String tgl_selesai = ed_tgl_selesai.getText().toString();
         String dana = ed_dana.getText().toString();
         String id = ss.readSetting("id_user");
-        AndroidNetworking.post(p.URL_API)
-                .addBodyParameter("id_member",""+id)
-                .addBodyParameter("judul",""+judul)
-                .addBodyParameter("nama_pasien",""+nama)
-                .addBodyParameter("menderita",""+penyakit)
-                .addBodyParameter("deskripsi",""+tentang)
-                .addBodyParameter("alamat",""+alamat)
-                .addBodyParameter("tgl_mulai",""+tgl_mulai)
-                .addBodyParameter("tgl_selesai",""+tgl_selesai)
-                .addBodyParameter("dana",""+dana)
-                .addBodyParameter("gambar",""+poto_pasien)
-                .addBodyParameter("bukti_surat",""+poto_bukti)
+        AndroidNetworking.post(p.URL_API+"/galangan")
+                .addBodyParameter("id_user",id)
+                .addBodyParameter("judul",judul)
+                .addBodyParameter("nama_pasien",nama)
+                .addBodyParameter("menderita",penyakit)
+                .addBodyParameter("deskripsi",tentang)
+                .addBodyParameter("alamat",alamat)
+                .addBodyParameter("tgl_mulai",tgl_mulai)
+                .addBodyParameter("tgl_selesai",tgl_selesai)
+                .addBodyParameter("dana",dana)
+                .addBodyParameter("gambar",poto_pasien)
+                .addBodyParameter("bukti_surat",poto_bukti)
                 .setPriority(Priority.MEDIUM)
                 .setTag("Tambah Data")
                 .build()
@@ -441,14 +446,14 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-                        Log.d("responEdit",""+response);
                         try{
-                            Boolean status = response.getBoolean("success");
-                            //                            Log.d("respon",""+response.getString("result"));
+                            Boolean status = response.getBoolean("status");
                             if(status){
-                                Toast.makeText(FormTambahGalanganActivity.this, "Data berhasil di simpan", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FormTambahGalanganActivity.this,
+                                        response.getString("message"), Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(FormTambahGalanganActivity.this, "Data gagal di kirim", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FormTambahGalanganActivity.this,
+                                        response.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                             Intent i = new Intent(FormTambahGalanganActivity.this,Dashboard_Member_Activity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -461,7 +466,8 @@ public class FormTambahGalanganActivity extends AppCompatActivity implements Vie
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("responEdit","gagal");
+                        progressDialog.dismiss();
+                        Log.d("responEdit","gagal"+anError.getErrorBody());
                     }
                 });
     }

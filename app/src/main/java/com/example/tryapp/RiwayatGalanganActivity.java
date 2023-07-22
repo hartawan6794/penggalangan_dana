@@ -18,6 +18,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.tryapp.Adapter.RecyclerViewAdapter;
 import com.example.tryapp.Adapter.RiwayatAdapter;
 import com.example.tryapp.Helper.Pengaturan;
+import com.example.tryapp.Helper.SettingSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,11 +27,14 @@ import java.util.ArrayList;
 
 public class RiwayatGalanganActivity extends AppCompatActivity {
 
+    private final static String TAG = "RiwayatGalanganActivity";
     RecyclerView rv_riwayat;
     RiwayatAdapter riwayatAdapter;
     Pengaturan p;
     private ArrayList<String> arr_id,arr_judul,arr_img,arr_dana,arr_terkumpul;
     ProgressDialog progressDialog;
+    SettingSession ss;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class RiwayatGalanganActivity extends AppCompatActivity {
         rv_riwayat = findViewById(R.id.rv_riwayat);
         initLayoutAdapter();
 
+        ss = new SettingSession(this);
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Mengambil Data");
@@ -48,6 +54,7 @@ public class RiwayatGalanganActivity extends AppCompatActivity {
         progressDialog.show();
 
         getData();
+
 
     }
 
@@ -91,7 +98,8 @@ public class RiwayatGalanganActivity extends AppCompatActivity {
 
     private void getData(){
         initArray();
-        AndroidNetworking.get(p.URL_API)
+        AndroidNetworking.get(p.URL_API+"/galangan")
+                .addQueryParameter("type","semua")
                 .setTag("Get Data")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -99,15 +107,12 @@ public class RiwayatGalanganActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-                        Log.d("respone", "onResponse: "+response);
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
                                 JSONArray ja = response.getJSONArray("result");
                                 for(int i = 0 ; i < ja.length() ; i++){
                                     JSONObject jo = ja.getJSONObject(i);
-
-
                                     arr_id.add(jo.getString("id_galang"));
                                     arr_judul.add(jo.getString("judul"));
                                     arr_dana.add(jo.getString("dana"));
@@ -130,7 +135,8 @@ public class RiwayatGalanganActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-
+                        progressDialog.dismiss();
+                        Log.d(TAG, "onError: "+anError.getErrorBody());
                     }
                 });
 

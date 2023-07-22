@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class GalanganDanaUserActivity extends AppCompatActivity {
+    private final static String TAG = "RiwayatGalanganActivity";
 
     RecyclerView rv_main;
     GalanganUserAdapter adapter;
@@ -68,8 +69,8 @@ public class GalanganDanaUserActivity extends AppCompatActivity {
 
     private void getData(String id,String url){
         initArray();
-        AndroidNetworking.post(url)
-                .addBodyParameter("id_member",""+id)
+        AndroidNetworking.get(p.URL_API+"/galangan")
+                .addQueryParameter("id_user",id)
                 .setTag("Get Data")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -111,7 +112,8 @@ public class GalanganDanaUserActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-
+                        progressDialog.dismiss();
+                        Log.d(TAG, "onError: ");
                     }
                 });
 

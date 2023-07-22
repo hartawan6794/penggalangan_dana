@@ -19,10 +19,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.example.tryapp.Adapter.RecyclerViewAdapter;
 import com.example.tryapp.Adapter.RekeningAdapter;
 import com.example.tryapp.Helper.Pengaturan;
-import com.example.tryapp.model.Galang;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;

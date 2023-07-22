@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 public class ProfileUserActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private final static String TAG ="ProfileUserActivity";
     TextView tv_nik,tv_nama,tv_user,tv_jk,tv_pekerjaan,tv_alamat,tv_telp;
     Button bt_ubah;
     String id;
@@ -74,8 +75,8 @@ public class ProfileUserActivity extends AppCompatActivity implements View.OnCli
 
 
     private void getData(String id){
-        AndroidNetworking.post(p.URL_API)
-                .addBodyParameter("id",""+id)
+        AndroidNetworking.get(p.URL_API+"/user")
+                .addQueryParameter("id",id)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -86,9 +87,9 @@ public class ProfileUserActivity extends AppCompatActivity implements View.OnCli
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
-                                JSONArray ja = response.getJSONArray("result");
+//                                JSONArray ja = response.getJSONArray("result");
 //                                Log.d("respon",""+ja);
-                                JSONObject jo = ja.getJSONObject(0);
+                                JSONObject jo = response.getJSONObject("result");
                                 tv_nik.setText(jo.getString("nik"));;
                                 tv_nama.setText(jo.getString("nama_lengkap"));;
                                 tv_user.setText(jo.getString("username"));
@@ -112,7 +113,8 @@ public class ProfileUserActivity extends AppCompatActivity implements View.OnCli
                     }
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("responEdit","gagal"+anError);
+                        progressDialog.dismiss();
+                        Log.d("responEdit","gagal"+anError.getErrorBody());
                     }
                 });
     }

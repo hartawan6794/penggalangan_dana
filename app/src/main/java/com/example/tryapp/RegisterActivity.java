@@ -29,6 +29,7 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private final static String TAG ="RegisterActivity";
     Spinner s_jk;
     EditText ed_nik,ed_nama,ed_user,ed_pass,ed_pekerjaan,ed_alamat,ed_telp;
     Button bt_simpan,bt_cancel;
@@ -93,14 +94,13 @@ public class RegisterActivity extends AppCompatActivity {
             bt_simpan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    nik = ed_nik.getText().toString();
                     nama = ed_nama.getText().toString();
                     user = ed_user.getText().toString();
                     pass = ed_pass.getText().toString();
                     pekerjaan = ed_pekerjaan.getText().toString();
                     alamat = ed_alamat.getText().toString();
                     telp = ed_telp.getText().toString();
-                    update_data(id, nama, user, pass, jk_s, pekerjaan, alamat, telp);
+                    update_data(id, nama, pass, jk_s, pekerjaan, alamat, telp);
                 }
             });
 
@@ -120,9 +120,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
     }
 
     private void validation(){
@@ -187,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void insert_data(String nik, String nama, String user,String pass,String jk, String pekerjaan, String alamat, String telp ){
-        AndroidNetworking.post(p.URL_API)
+        AndroidNetworking.post(p.URL_API+"/register")
                 .addBodyParameter("nik",""+nik)
                 .addBodyParameter("nama",""+nama)
                 .addBodyParameter("user",""+user)
@@ -230,23 +227,21 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void getData(String id){
-        AndroidNetworking.post(p.URL_API)
-                .addBodyParameter("id",""+id)
+        AndroidNetworking.get(p.URL_API+"/user")
+                .addQueryParameter("id",id)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-//                        Log.d("responEdit",""+response);
                         try{
                             Boolean status = response.getBoolean("status");
                             if(status){
-                                JSONArray ja = response.getJSONArray("result");
-//                                Log.d("respon",""+ja);
-                                JSONObject jo = ja.getJSONObject(0);
+                                JSONObject jo = response.getJSONObject("result");
                                 ed_nik.setText(jo.getString("nik"));
                                 ed_nik.setEnabled(false);
+                                ed_user.setEnabled(false);
                                 ed_nama.setText(jo.getString("nama_lengkap"));;
                                 ed_user.setText(jo.getString("username"));
                                 ed_pass.setHint("Kosongkan bila tidak berubah");
@@ -261,29 +256,32 @@ public class RegisterActivity extends AppCompatActivity {
                                 ed_alamat.setText(jo.getString("alamat"));
                                 ed_telp.setText(jo.getString("telp"));
                                 bt_simpan.setText("Ubah");
-                            }else{
-                            }
+                            }else
+                                Toast.makeText(RegisterActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                     }
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("responEdit","gagal"+anError);
+                        progressDialog.dismiss();
+                        Log.d("responEdit","gagal"+anError.getErrorBody());
                     }
                 });
     }
 
-    private void update_data(String id, String nama, String user,String pass,String jk, String pekerjaan, String alamat, String telp){
-        AndroidNetworking.post(p.URL_API)
-                .addBodyParameter("id",""+id)
-                .addBodyParameter("nama",""+nama)
-                .addBodyParameter("user",""+user)
-                .addBodyParameter("pass",""+pass)
-                .addBodyParameter("jk",""+jk)
-                .addBodyParameter("pekerjaan",""+pekerjaan)
-                .addBodyParameter("alamat",""+alamat)
-                .addBodyParameter("telp",""+telp)
+    private void update_data(String id, String nama,String pass,String jk, String pekerjaan, String alamat, String telp){
+        progressDialog.setMessage("Mengirim data....");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        AndroidNetworking.post(p.URL_API+"/user")
+                .addBodyParameter("id",id)
+                .addBodyParameter("nama",nama)
+                .addBodyParameter("pass",pass)
+                .addBodyParameter("jk",jk)
+                .addBodyParameter("pekerjaan",pekerjaan)
+                .addBodyParameter("alamat",alamat)
+                .addBodyParameter("telp",telp)
                 .setPriority(Priority.MEDIUM)
                 .setTag("Ubah Data")
                 .build()
@@ -291,10 +289,8 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
-                        Log.d("responEdit",""+response);
                         try{
                             Boolean status = response.getBoolean("status");
-                            //                            Log.d("respon",""+response.getString("result"));
                             if(status){
                                 Toast.makeText(RegisterActivity.this, "Data berhasil di Ubah", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(RegisterActivity.this,ProfileUserActivity.class);
@@ -311,7 +307,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("responEdit","gagal");
+                        progressDialog.dismiss();
+                        Log.d(TAG,"ERROR :"+anError.getResponse());
                     }
                 });
     }

@@ -210,12 +210,12 @@ public class KonfrimActivity extends AppCompatActivity {
 
     void kirimDonasi(){
         AndroidNetworking.post(p.URL_API+"/postDonasi")
-                .addBodyParameter("tgl_transfer",""+tanggal)
-                .addBodyParameter("nominal",""+nominal)
-                .addBodyParameter("nama",""+nama)
-                .addBodyParameter("email",""+email)
-                .addBodyParameter("image",""+gambar)
-                .addBodyParameter("id",""+value)
+                .addBodyParameter("tgl_transfer",tanggal)
+                .addBodyParameter("nominal",nominal)
+                .addBodyParameter("nama",nama)
+                .addBodyParameter("email",email)
+                .addBodyParameter("image",gambar)
+                .addBodyParameter("id",value)
                 .setPriority(Priority.MEDIUM)
                 .setTag("Tambah Data")
                 .build()
@@ -225,9 +225,9 @@ public class KonfrimActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         Log.d("responEdit",""+response);
                         try{
-                            Boolean status = response.getBoolean("error");
+                            Boolean status = response.getBoolean("status");
     //                            Log.d("respon",""+response.getString("result"));
-                            if(!status){
+                            if(status){
                                 Toast.makeText(KonfrimActivity.this, "Data berhasil di kirim", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(KonfrimActivity.this, "Data gagal di kirim", Toast.LENGTH_SHORT).show();
@@ -298,20 +298,14 @@ public class KonfrimActivity extends AppCompatActivity {
                 String imagepath = getRealPathFromURI(selectedImageUri,this);
                 File imageFile = new File(imagepath);
                 gambar =getFileName(selectedImageUri);
-                Log.d("name image", "name " +nama);
-                Picasso.get().load(selectedImageUri).fit().into(iv_view);
                 btn_upload.setVisibility(View.GONE);
                 OkHttpClient client = new OkHttpClient.Builder()
                         .retryOnConnectionFailure(false)
                         .build();
-
                 AndroidNetworking.initialize(KonfrimActivity.this,client);
-
-
                 AndroidNetworking.upload(p.URL_API+"/uploadFile")
-                        .addMultipartFile("file",imageFile)
-                        //.addMultipartParameter("key","value")
-                        //.setTag("uploadTest")
+                        .addMultipartFile("img",imageFile)
+                        .setTag("uploadTest")
                         .setPriority(Priority.HIGH)
                         .build()
                         .setUploadProgressListener(new UploadProgressListener() {
@@ -333,10 +327,12 @@ public class KonfrimActivity extends AppCompatActivity {
 
                                 progressDialog.dismiss();
                                 try{
-                                    Boolean status = response.getBoolean("success");
+                                    Boolean status = response.getBoolean("status");
                                     if(status){
                                         Toast.makeText(KonfrimActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                                    }
+                                        Picasso.get().load(selectedImageUri).fit().into(iv_view);
+                                    } else Toast.makeText(KonfrimActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
