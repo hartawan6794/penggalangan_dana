@@ -2,6 +2,7 @@ package com.example.tryapp.Adapter;
 
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
         // Glide is use to load image
         // from url in your imageview.
-        Picasso.get().load(sliderItem.getImgUrl()).into(viewHolder.imageViewBackground);
+        Picasso.get().load(sliderItem.getImgUrl()).fit().centerCrop().into(viewHolder.imageViewBackground);
     }
 
     @Override
